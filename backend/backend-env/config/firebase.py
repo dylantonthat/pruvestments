@@ -49,7 +49,7 @@ def modify_doc(collection: str, field_to_search_by: str, value_of_field: any, ne
         id = entry[0].pop('id')
         db.collection(collection).document(id).set(entry[0])
 
-# gets all rows of data
+# gets all rows of data!
 def get_all(limit=10):
     data = db.collection('test').stream()
 
