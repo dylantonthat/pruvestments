@@ -40,7 +40,7 @@ const data = [
   },
 ];
 
-function Sentiment_Visual() {
+function SentimentVisual() {
   return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart
@@ -66,4 +66,4 @@ function Sentiment_Visual() {
   );
 }
 
-export default Sentiment_Visual;
+export default SentimentVisual;
