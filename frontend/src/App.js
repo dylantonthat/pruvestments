@@ -9,6 +9,7 @@ function App() {
           <div className="w-full md:w-1/2 mx-auto">
             <Landing />
             <Sentiment_Visual />
+            <SideMenu/>
           </div>
         </div>
     </div>
