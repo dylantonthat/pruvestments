@@ -14,8 +14,38 @@ def check_collection(collection_name: str):
     return len(docs) > 0
     
 # adds entry to a given collection
-def addEntry(collection: str, entry: dict):
+def add_doc(collection: str, entry: dict):
     if check_collection(collection):
         db.collection(collection).add(entry)
 
+# returns documents based on a chosen field and value
+def get_doc(collection: str, field: str, value:any):
+    if check_collection(collection):
+        collection_ref = db.collection(collection)
+        query = collection_ref.where(field, '==', value).get()
+        
+        docs = []
+
+        for doc in query:
+            entry = doc.to_dict()
+            entry['id'] = doc.id
+            docs.append(entry)
+
+        return docs
+    else:
+        raise KeyError('Collection not found')
+
+# modifies a document given a collection, field to use in query, and expected value of that field
+def modify_doc(collection: str, field_to_search_by: str, value_of_field: any, new_data: dict):
+    entry = get_doc(collection, field_to_search_by, value_of_field)
+    
+    if len(entry) == 0:
+        raise ValueError('No entries')
+    elif len(entry) > 1:
+        raise ValueError('More than one entry found')
+    else:
+        for key, value in new_data.items():
+            entry[0][key] = value
+        id = entry[0].pop('id')
+        db.collection(collection).document(id).set(entry[0])
 
