@@ -1,0 +1,14 @@
+Flask
+Flask-Cors
+Flask-RESTful
+numpy
+pandas
+scikit-learn
+nltk
+spacy
+textblob
+flask_sqlalchemy
+firebase
+firebase_admin
+beautifulsoup4
+# Note: react, react-dom, and axios are not Python packages and should be managed via npm or yarn for JavaScript projects.
