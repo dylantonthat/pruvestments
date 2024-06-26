@@ -51,7 +51,7 @@ def modify_doc(collection: str, field_to_search_by: str, value_of_field: any, ne
 
 # gets all rows of data
 def get_all(limit=10):
-    data = db.collection('test').stream()
+    data = db.collection('data').stream()
 
     all_docs = []
     for i, doc in enumerate(data):
