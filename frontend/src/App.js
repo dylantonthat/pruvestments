@@ -1,14 +1,16 @@
 import './App.css';
 import Landing from './components/landing';
-import Sentiment_Visual from './components/sentiment_visual';
+import SentimentVisual from './components/sentimentVisual';
+import Header from './components/header';
 
 function App() {
   return (
     <div className="App">
         <div className="container mx-auto p-4">
           <div className="w-full md:w-1/2 mx-auto">
+            <Header />
             <Landing />
-            <Sentiment_Visual />
+            <SentimentVisual />
           </div>
         </div>
     </div>
