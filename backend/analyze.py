@@ -10,7 +10,7 @@ nltk.download('punkt')
 
 # Fetch all documents
 res = get_all(limit=1035)
-# print(res)  
+# print(res)
 
 # Process tweets
 tweets = [entry['Tweet'] for entry in res if 'Tweet' in entry]
