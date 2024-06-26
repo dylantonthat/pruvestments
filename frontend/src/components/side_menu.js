@@ -1,32 +1,23 @@
-import React, { useState } from 'react';
-import './side_menu.css';
 
-const SideMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+import React from 'react';
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
+const Sidebar = () => {
   return (
-    <div style={{ textAlign: 'left' }}>
-      <button className="menu-toggle" onClick={toggleMenu}>
-        {"Menu"}
-      </button>
-      <div className={`side-menu ${isOpen ? 'open' : 'closed'}`}>
+    <div className="bg-gray-800 h-full w-64 fixed left-0 top-0 overflow-y-auto">
+      {/* Sidebar content */}
+      <div className="p-4 text-white">
+        <h2 className="text-lg font-semibold mb-4">Companies</h2>
         <ul>
-          <button style={{ backgroundColor: 'white', border: 'none'}}>AAPL</button><br/>
-          <button style={{ backgroundColor: 'white', border: 'none'}}>PRU</button><br/>
-          <button style={{ backgroundColor: 'white', border: 'none'}}>META</button><br/>
-          <button style={{ backgroundColor: 'white', border: 'none'}}>ETC</button><br/>
+          <li className="mb-2"><a href="#" className="text-gray-300 hover:text-white">PRU</a></li>
+          <li className="mb-2"><a href="#" className="text-gray-300 hover:text-white">APPL</a></li>
+          <li className="mb-2"><a href="#" className="text-gray-300 hover:text-white">META</a></li>
+          <li className="mb-2"><a href="#" className="text-gray-300 hover:text-white">ETC</a></li>
+
+          {/* Add more links as needed */}
         </ul>
       </div>
     </div>
   );
-};
+}
 
-
-
-export default SideMenu;
-
-
+export default Sidebar;
