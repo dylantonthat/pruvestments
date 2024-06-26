@@ -8,7 +8,7 @@ nltk.download('punkt')
 
 # Fetch all documents
 res = get_all(limit=10)
-# print(res)  # Print to inspect the structure
+# print(res)  
 
 # Process tweets
 tweets = [entry['Tweet'] for entry in res]
