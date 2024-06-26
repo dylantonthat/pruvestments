@@ -60,3 +60,15 @@ def get_all(limit=10):
         all_docs.append(doc.to_dict())
         
     return all_docs
+
+
+def get_document_by_id(collection_name, document_id):
+    doc_ref = db.collection(collection_name).document(document_id)
+
+    doc = doc_ref.get()
+
+    if doc.exists:
+        return doc.to_dict()
+    else:
+        print('No such document!')
+        return None
