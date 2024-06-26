@@ -1,0 +1,36 @@
+.side-menu {
+    position: fixed;
+    left: -250px; /* Off-screen by default */
+    top: 80px;
+    width: 250px;
+    height: 100%;
+    background-color: white;
+    color: black;
+    transition: left 0.3s;
+    overflow-y: auto;
+  }
+  
+  .open {
+    left: 10px; /* Slide into view */
+  }
+  
+  .closed {
+    left: -250px; /* Slide out of view */
+  }
+  
+  .menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .menu-toggle:hover {
+    background-color: #555;
+  }
+  
