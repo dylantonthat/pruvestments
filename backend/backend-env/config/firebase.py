@@ -49,3 +49,12 @@ def modify_doc(collection: str, field_to_search_by: str, value_of_field: any, ne
         id = entry[0].pop('id')
         db.collection(collection).document(id).set(entry[0])
 
+# gets all rows of data
+def get_all():
+    data = db.collection('test').stream()
+
+    all_docs = []
+    for doc in data:
+        all_docs.append(doc.to_dict())
+        
+    return all_docs
