@@ -3,10 +3,11 @@ import prulogoImage from '../prulogo.png';
 
 function Footer() {
 
+
     const footerStyles = {
         backgroundColor: '#f5f5f5', // Example background color
         boxShadow: '0 -4px 10px -5px rgba(0, 0, 0, 0.15)', // Shadow only on the top edge
-          // Padding on top for space between footer and content above
+
     };
 
     return (
