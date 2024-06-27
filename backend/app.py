@@ -1,14 +1,18 @@
 from flask import Flask, jsonify, request
 from firebase import add_doc, get_doc, modify_doc, get_all, get_document_by_id
 
-
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
+
 
 @app.route("/")
 def hello_world():
     return 'Hello, World!'
 
-
+@app.route("/test")
+def test():
+    return "Test"
 
 @app.route('/api/data', methods=['GET'])
 def get_all_data():
@@ -35,6 +39,7 @@ def get_data_by_field(collection):
 def get_document(collection, document_id):
     try:
         data = get_document_by_id(collection, document_id)
+        print(jsonify(data))
         if data:
             return jsonify(data), 200
         else:

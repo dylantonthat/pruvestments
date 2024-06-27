@@ -76,9 +76,10 @@ function SentimentVisual() {
     };
     const fetchGraphData = async () => {
       try {
-        const response = await axios.get(`/api/data/your_collection/your_document_id`);
+        // const response = await axios.get(`/api/data/sents/m1rDXITsbTRAyByUBdxC`);
+        const response = await axios.get("http://localhost:5000/api/data/sents/m1rDXITsbTRAyByUBdxC")
         if (response.data) {
-          setData(response.data.your_data_field); // Adjust this based on your data structure
+          setSentimentData(response.data.your_data_field);
         } else {
           setError("Unable to fetch graph data");
         }
@@ -93,18 +94,11 @@ function SentimentVisual() {
     fetchStockData();
     fetchGraphData();
 
-    const intervalId = setInterval(fetchStockData, 300000);
+    const intervalId = setInterval(fetchStockData, 3000000000);
 
     return () => clearInterval(intervalId);
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <div>
