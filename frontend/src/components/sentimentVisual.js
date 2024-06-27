@@ -2,47 +2,48 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-const data = [
-  {
-    name: '',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: '',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: '',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: '',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: '',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: '',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-];
+// const data = [
+//   {
+//     name: '',
+//     uv: 4000,
+//     pv: 2400,
+//     amt: 2400,
+//   },
+//   {
+//     name: '',
+//     uv: 3000,
+//     pv: 1398,
+//     amt: 2210,
+//   },
+//   {
+//     name: '',
+//     uv: 2000,
+//     pv: 9800,
+//     amt: 2290,
+//   },
+//   {
+//     name: '',
+//     uv: 2780,
+//     pv: 3908,
+//     amt: 2000,
+//   },
+//   {
+//     name: '',
+//     uv: 1890,
+//     pv: 4800,
+//     amt: 2181,
+//   },
+//   {
+//     name: '',
+//     uv: 2390,
+//     pv: 3800,
+//     amt: 2500,
+//   },
+// ];
 
 function SentimentVisual() {
   const [stockInfo, setStockInfo] = useState({ symbol: "", price: 0 });
+  const [sentimentData, setSentimentData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -73,12 +74,37 @@ function SentimentVisual() {
         setLoading(false);
       }
     };
+    const fetchGraphData = async () => {
+      try {
+        const response = await axios.get(`/api/data/your_collection/your_document_id`);
+        if (response.data) {
+          setData(response.data.your_data_field); // Adjust this based on your data structure
+        } else {
+          setError("Unable to fetch graph data");
+        }
+      } catch (err) {
+        setError("Error fetching graph data");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchStockData();
-    const intervalId = setInterval(fetchStockData, 60000);
+    fetchGraphData();
+
+    const intervalId = setInterval(fetchStockData, 300000);
 
     return () => clearInterval(intervalId);
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>
@@ -102,7 +128,7 @@ function SentimentVisual() {
         <LineChart
           width={500}
           height={300}
-          data={data}
+          data={sentimentData}
           margin={{
             top: 5,
             right: 30,
@@ -120,7 +146,7 @@ function SentimentVisual() {
         </LineChart>
       </ResponsiveContainer>
     </div>
-    
+
   );
 }
 
