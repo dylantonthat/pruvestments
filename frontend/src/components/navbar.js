@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import prulogoImage from '../prulogo2.png';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -30,7 +31,9 @@ const NavBar = () => {
     <div className="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
       <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div className="p-4 flex flex-row items-center justify-between">
-          <a href="#" className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">True Pru</a>
+          <a href="#" className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"><a href="#" className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
+  <img src={prulogoImage} alt="Pru Logo" className="h-20 w-auto" />
+</a></a>
           <button
             className="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
             onClick={toggleDropdown}
