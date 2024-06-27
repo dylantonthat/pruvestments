@@ -16,7 +16,7 @@ function App() {
           </div>
         </div>
         <div style={{paddingTop: '20px', width: '100%', position: 'relative', zIndex: '1' }}>
-              <Footer />
+            <Footer />
         </div>
     </div>
   );
