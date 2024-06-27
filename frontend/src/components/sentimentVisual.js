@@ -2,45 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-// const data = [
-//   {
-//     name: '',
-//     uv: 4000,
-//     pv: 2400,
-//     amt: 2400,
-//   },
-//   {
-//     name: '',
-//     uv: 3000,
-//     pv: 1398,
-//     amt: 2210,
-//   },
-//   {
-//     name: '',
-//     uv: 2000,
-//     pv: 9800,
-//     amt: 2290,
-//   },
-//   {
-//     name: '',
-//     uv: 2780,
-//     pv: 3908,
-//     amt: 2000,
-//   },
-//   {
-//     name: '',
-//     uv: 1890,
-//     pv: 4800,
-//     amt: 2181,
-//   },
-//   {
-//     name: '',
-//     uv: 2390,
-//     pv: 3800,
-//     amt: 2500,
-//   },
-// ];
-
 function SentimentVisual() {
   const [stockInfo, setStockInfo] = useState({ symbol: "", price: 0 });
   const [sentimentData, setSentimentData] = useState([]);
@@ -49,7 +10,7 @@ function SentimentVisual() {
 
   useEffect(() => {
     const fetchStockData = async () => {
-      const API_KEY = "UN3FBBVP92S5ZIQV";
+      const API_KEY = "UN3FBBVP92S5ZIQV"; // ran out of calls
       const STOCK_SYMBOL = "PRU";
 
       try {
@@ -74,12 +35,18 @@ function SentimentVisual() {
         setLoading(false);
       }
     };
+
     const fetchGraphData = async () => {
       try {
-        // const response = await axios.get(`/api/data/sents/m1rDXITsbTRAyByUBdxC`);
-        const response = await axios.get("http://localhost:5000/api/data/sents/m1rDXITsbTRAyByUBdxC")
-        if (response.data) {
-          setSentimentData(response.data.your_data_field);
+        const response = await axios.get("http://localhost:5000/api/data/sents/m1rDXITsbTRAyByUBdxC");
+        console.log("Response data:", response.data);
+
+        if (response.data && response.data.sentiments) {
+          const transformedData = response.data.sentiments.map((value, index) => ({
+            name: `Point ${index + 1}`,
+            sentiment: value,
+          }));
+          setSentimentData(transformedData);
         } else {
           setError("Unable to fetch graph data");
         }
@@ -94,17 +61,21 @@ function SentimentVisual() {
     fetchStockData();
     fetchGraphData();
 
-    const intervalId = setInterval(fetchStockData, 3000000000);
+    const intervalId = setInterval(fetchStockData, 300000); // Update every 5 minutes
 
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    console.log("Updated sentiment data:", sentimentData);
+  }, [sentimentData]);
 
   return (
     <div>
       <section className="text-gray-600 body-font bg-white dark:bg-gray-800 dark:text-gray-200">
-        <div className="container mx-auto px-5 py-24">
-          <div className="flex flex-col items-center text-center w-full mb-20">
+        <div className="container mx-auto px-5 py-5">
+          <div className="flex flex-col items-center text-center w-full mb-10">
+            <hr className="w-3/4 border-gray-200 dark:border-gray-700 mb-10" />
             <h2 className="text-xs text-blue-500 tracking-widest font-medium title-font mb-1">
               Featured
             </h2>
@@ -120,8 +91,8 @@ function SentimentVisual() {
       </section>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
-          width={500}
-          height={300}
+          width={400}
+          height={400}
           data={sentimentData}
           margin={{
             top: 5,
@@ -135,12 +106,10 @@ function SentimentVisual() {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="sentiment" stroke="#007AC1" activeDot={{ r: 8 }} />
         </LineChart>
       </ResponsiveContainer>
     </div>
-
   );
 }
 
